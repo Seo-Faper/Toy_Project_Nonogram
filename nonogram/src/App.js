@@ -1,5 +1,22 @@
 import gameData from "./gameData";
-import Board from "./Board";
+import * as React from "react";
+import { experimentalStyled as styled } from "@mui/material/styles";
+import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
+import Grid from "@mui/material/Unstable_Grid2";
+import "./App.css";
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  margin: "5px",
+  padding: theme.spacing(2),
+  textAlign: "center",
+  borderRadius: "5px",
+  width: "20px",
+  height: "20px",
+  color: theme.palette.text.secondary,
+}));
 
 function CreateGrid_X(arr) {
   var grid = [];
@@ -63,7 +80,13 @@ function App() {
   return (
     <div>
       <h1>Test React</h1>
-      <Board />
+      <Box>
+        {Array.from(answerGrid).map((_, x) => (
+          <Grid container>
+            {Array.from(answerGrid[x].map((_, y) => <Item></Item>))}
+          </Grid>
+        ))}
+      </Box>
     </div>
   );
 }
