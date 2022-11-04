@@ -73,17 +73,48 @@ function transpose(arr) {
   return grid;
 }
 
+function Y_init(arr, max) {
+  for (var i = 0; i < arr.length; i++) {
+    for (var j = 0; j < max - arr[i].length + 1; j++) {
+      arr[i].push("");
+    }
+  }
+  return arr;
+}
+
 function App() {
   var answerGrid = gameData[0].answer;
   var gridData = [CreateGrid_X(answerGrid), CreateGrid_Y(answerGrid)];
-  console.log(gridData);
+  console.log(gridData[1]);
+  var grid_Y = transpose(
+    Y_init(CreateGrid_Y(answerGrid), answerGrid[0].length)
+  );
+  console.log();
   return (
     <div>
       <h1>Test React</h1>
+      <div class="game">
+        <Box>
+          {Array.from(answerGrid).map((_, x) => (
+            <Grid container>
+              {Array.from(answerGrid[x].map((_, y) => <Item></Item>))}
+            </Grid>
+          ))}
+        </Box>
+        <Box>
+          {Array.from(gridData[0]).map((_, x) => (
+            <Grid container>
+              {Array.from(
+                gridData[0][x].map((_, y) => <Item>{gridData[0][x][y]}</Item>)
+              )}
+            </Grid>
+          ))}
+        </Box>
+      </div>
       <Box>
-        {Array.from(answerGrid).map((_, x) => (
+        {Array.from(grid_Y).map((_, x) => (
           <Grid container>
-            {Array.from(answerGrid[x].map((_, y) => <Item></Item>))}
+            {Array.from(grid_Y[x].map((_, y) => <Item>{grid_Y[x][y]}</Item>))}
           </Grid>
         ))}
       </Box>
