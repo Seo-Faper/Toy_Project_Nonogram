@@ -100,7 +100,13 @@ const Num = styled(Paper)(({ theme }) => ({
 function App() {
   var answerGrid = gameData[0].answer;
   var gridData = [CreateGrid_X(answerGrid), CreateGrid_Y(answerGrid)];
-
+  let [gridActive, setGridActive] = React.useState(false);
+  const userClick = (x, y) => {
+    alert(x + ", " + y + " 클릭됨");
+    setGridActive((prev) => {
+      return x + "-" + y;
+    });
+  };
   var grid_Y = transpose(
     Y_init(CreateGrid_Y(answerGrid), answerGrid[0].length)
   );
@@ -113,7 +119,17 @@ function App() {
         <Box>
           {Array.from(answerGrid).map((_, x) => (
             <Grid container>
-              {Array.from(answerGrid[x].map((_, y) => <Item></Item>))}
+              {Array.from(
+                answerGrid[x].map((_, y) => (
+                  <Item
+                    vaule={x + "-" + y}
+                    id={"grid" + (x + "-" + y == gridActive ? " actvie" : "")}
+                    onClick={(e) => {
+                      userClick(x, y);
+                    }}
+                  ></Item>
+                ))
+              )}
             </Grid>
           ))}
         </Box>
