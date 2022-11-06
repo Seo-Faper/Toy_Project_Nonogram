@@ -5,18 +5,9 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Unstable_Grid2";
 import "./App.css";
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
-  margin: "5px",
-  padding: theme.spacing(2),
-  textAlign: "center",
-  borderRadius: "5px",
-  width: "20px",
-  height: "20px",
-  color: theme.palette.text.secondary,
-}));
+import { Typography } from "@mui/material";
+import Container from "@mui/material/Container";
+import Button from "@mui/material/Button";
 
 function CreateGrid_X(arr) {
   var grid = [];
@@ -76,23 +67,48 @@ function transpose(arr) {
 function Y_init(arr, max) {
   for (var i = 0; i < arr.length; i++) {
     for (var j = 0; j < max - arr[i].length + 1; j++) {
-      arr[i].push("");
+      arr[i].push(" ");
     }
   }
   return arr;
 }
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
+  ...theme.typography.body2,
+  margin: "3px",
+  padding: theme.spacing(2),
+  textAlign: "center",
+  borderRadius: "1px",
+  width: "10px",
+  height: "10px",
+  color: theme.palette.text.secondary,
+}));
+
+const Num = styled(Paper)(({ theme }) => ({
+  margin: "2px",
+  backgroundColor: "#222",
+  color: "#fff",
+  padding: theme.spacing(2),
+  textAlign: "center",
+  borderRadius: "5px",
+  width: "10px",
+  height: "10px",
+  fontSize: "20px",
+  fontFamily: "Galmuri11",
+}));
 
 function App() {
   var answerGrid = gameData[0].answer;
   var gridData = [CreateGrid_X(answerGrid), CreateGrid_Y(answerGrid)];
-  console.log(gridData[1]);
+
   var grid_Y = transpose(
     Y_init(CreateGrid_Y(answerGrid), answerGrid[0].length)
   );
-  console.log();
+
   return (
-    <div>
-      <h1>Test React</h1>
+    <Container maxWidth="sm">
+      <h1>네모네모 로직 | 00:00.00</h1>
+
       <div class="game">
         <Box>
           {Array.from(answerGrid).map((_, x) => (
@@ -105,7 +121,11 @@ function App() {
           {Array.from(gridData[0]).map((_, x) => (
             <Grid container>
               {Array.from(
-                gridData[0][x].map((_, y) => <Item>{gridData[0][x][y]}</Item>)
+                gridData[0][x].map((_, y) => (
+                  <Num key={0} elevation={0}>
+                    {gridData[0][x][y]}
+                  </Num>
+                ))
               )}
             </Grid>
           ))}
@@ -114,11 +134,17 @@ function App() {
       <Box>
         {Array.from(grid_Y).map((_, x) => (
           <Grid container>
-            {Array.from(grid_Y[x].map((_, y) => <Item>{grid_Y[x][y]}</Item>))}
+            {Array.from(
+              grid_Y[x].map((_, y) => (
+                <Num key={0} elevation={0}>
+                  {grid_Y[x][y]}
+                </Num>
+              ))
+            )}
           </Grid>
         ))}
       </Box>
-    </div>
+    </Container>
   );
 }
 
