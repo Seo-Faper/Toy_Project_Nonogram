@@ -72,9 +72,19 @@ function Y_init(arr, max) {
   }
   return arr;
 }
+function GenerateGrid(arr){
+  var grid = [];
+  for(var i = 0; i<arr.length; i++){
+    var a = [];
+    for(var j = 0; j< arr[i].length; j++){
+      a.push(0);
+    }
+    grid.push(a);
+  }
+  return grid;
+
+}
 const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === "dark" ? "#1A2027" : "#fff",
-  ...theme.typography.body2,
   margin: "3px",
   padding: theme.spacing(2),
   textAlign: "center",
@@ -98,13 +108,16 @@ const Num = styled(Paper)(({ theme }) => ({
 }));
 
 function App() {
+
   var answerGrid = gameData[0].answer;
+  var userGrid = GenerateGrid(answerGrid);
   var gridData = [CreateGrid_X(answerGrid), CreateGrid_Y(answerGrid)];
   let [gridActive, setGridActive] = React.useState(false);
+
   const userClick = (x, y) => {
     alert(x + ", " + y + " 클릭됨");
     setGridActive((prev) => {
-      return x + "-" + y;
+      return !prev;
     });
   };
   var grid_Y = transpose(
@@ -123,7 +136,7 @@ function App() {
                 answerGrid[x].map((_, y) => (
                   <Item
                     vaule={x + "-" + y}
-                    id={"grid" + (x + "-" + y == gridActive ? " actvie" : "")}
+                    id={"grid-" + x + "-" + y}
                     onClick={(e) => {
                       userClick(x, y);
                     }}
