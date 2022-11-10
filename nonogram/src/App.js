@@ -72,17 +72,16 @@ function Y_init(arr, max) {
   }
   return arr;
 }
-function GenerateGrid(arr){
+function GenerateGrid(arr) {
   var grid = [];
-  for(var i = 0; i<arr.length; i++){
+  for (var i = 0; i < arr.length; i++) {
     var a = [];
-    for(var j = 0; j< arr[i].length; j++){
+    for (var j = 0; j < arr[i].length; j++) {
       a.push(0);
     }
     grid.push(a);
   }
   return grid;
-
 }
 const Item = styled(Paper)(({ theme }) => ({
   margin: "3px",
@@ -108,18 +107,20 @@ const Num = styled(Paper)(({ theme }) => ({
 }));
 
 function App() {
-
   var answerGrid = gameData[0].answer;
   var userGrid = GenerateGrid(answerGrid);
   var gridData = [CreateGrid_X(answerGrid), CreateGrid_Y(answerGrid)];
-  let [gridActive, setGridActive] = React.useState(false);
-
+  let [gridActive, setGridActive] = React.useState(userGrid);
   const userClick = (x, y) => {
-    alert(x + ", " + y + " 클릭됨");
+
+    console.log(userGrid);
     setGridActive((prev) => {
-      return !prev;
+      if (prev[x][y] == 1) prev[x][y] = 0;
+      else prev[x][y] = 1;
+      return prev;
     });
   };
+
   var grid_Y = transpose(
     Y_init(CreateGrid_Y(answerGrid), answerGrid[0].length)
   );
@@ -130,15 +131,14 @@ function App() {
 
       <div class="game">
         <Box>
-          {Array.from(answerGrid).map((_, x) => (
+          {Array.from(gridActive).map((_, x) => (
             <Grid container>
               {Array.from(
-                answerGrid[x].map((_, y) => (
+                gridActive[x].map((_, y) => (
                   <Item
-                    vaule={x + "-" + y}
-                    id={"grid-" + x + "-" + y}
+                    id={userGrid[x][y] == 1 ? "active" : ""}
                     onClick={(e) => {
-                      userClick(x, y);
+                      userClick(x, y, e);
                     }}
                   ></Item>
                 ))
