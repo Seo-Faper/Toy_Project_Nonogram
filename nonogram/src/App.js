@@ -110,13 +110,13 @@ function App() {
   var answerGrid = gameData[0].answer;
   var userGrid = GenerateGrid(answerGrid);
   var gridData = [CreateGrid_X(answerGrid), CreateGrid_Y(answerGrid)];
-  let [gridActive, setGridActive] = React.useState(userGrid);
-  const userClick = (x, y) => {
+  let [gridActive, setGridActive] = React.useState(...userGrid);
 
-    console.log(userGrid);
+  const userClick = (x, y) => {
     setGridActive((prev) => {
       if (prev[x][y] == 1) prev[x][y] = 0;
       else prev[x][y] = 1;
+
       return prev;
     });
   };
@@ -131,15 +131,16 @@ function App() {
 
       <div class="game">
         <Box>
-          {Array.from(gridActive).map((_, x) => (
+          {Array.from(userGrid).map((_, x) => (
             <Grid container>
               {Array.from(
-                gridActive[x].map((_, y) => (
+                userGrid[x].map((_, y) => (
                   <Item
-                    id={userGrid[x][y] == 1 ? "active" : ""}
                     onClick={(e) => {
                       userClick(x, y, e);
+                      console.log(gridActive);
                     }}
+                    id={gridActive[x][y] === 1 ? "active" : ""}
                   ></Item>
                 ))
               )}
