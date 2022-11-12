@@ -107,7 +107,7 @@ const Num = styled(Paper)(({ theme }) => ({
 }));
 
 function App() {
-  var answerGrid = gameData[0].answer;
+  var answerGrid = gameData[2].answer;
   var userGrid = GenerateGrid(answerGrid);
   var gridData = [CreateGrid_X(answerGrid), CreateGrid_Y(answerGrid)];
   let [gridActive, setGridActive] = React.useState(userGrid);
@@ -126,7 +126,7 @@ function App() {
   );
 
   return (
-    <Container maxWidth="sm">
+    <Container>
       <h1>네모네모 로직 | 00:00.00</h1>
 
       <div class="game">
