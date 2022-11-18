@@ -111,7 +111,21 @@ function App() {
   var userGrid = GenerateGrid(answerGrid);
   var gridData = [CreateGrid_X(answerGrid), CreateGrid_Y(answerGrid)];
   let [gridActive, setGridActive] = React.useState(userGrid);
-
+  const submit = () => {
+    console.log("제출됨:");
+    console.log(gridActive);
+    let ans = true;
+    for (var i = 0; i < answerGrid.length; i++) {
+      for (var j = 0; j < answerGrid[i].length; j++) {
+        if (answerGrid[i][j] != gridActive[i][j]) ans = false;
+      }
+    }
+    if (ans) {
+      alert("정답입니다.");
+    } else {
+      alert("오답입니다.");
+    }
+  };
   const userClick = (x, y) => {
     setGridActive((prev) => {
       if (prev[x][y] == 1) prev[x][y] = 0;
@@ -174,7 +188,9 @@ function App() {
           </Grid>
         ))}
       </Box>
-      <Button variant="outlined">제출</Button>
+      <Button variant="outlined" onClick={submit}>
+        제출
+      </Button>
     </Container>
   );
 }
