@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Toy_Project_Nonogram/static/css/main.7cfd850b.css",
+    "main.js": "/Toy_Project_Nonogram/static/js/main.c671b636.js",
+    "index.html": "/Toy_Project_Nonogram/index.html",
+    "main.7cfd850b.css.map": "/Toy_Project_Nonogram/static/css/main.7cfd850b.css.map",
+    "main.c671b636.js.map": "/Toy_Project_Nonogram/static/js/main.c671b636.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7cfd850b.css",
+    "static/js/main.c671b636.js"
+  ]
+}
